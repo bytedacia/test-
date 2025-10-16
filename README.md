@@ -31,13 +31,19 @@ pip install -r requirements.txt
 ```
 
 ### 2. Configure Environment
-Copy `config.env` and fill in your credentials:
-- Discord Bot Token
-- Spotify API credentials
-- Gemini AI API key
-- Email settings for alerts
-- Developer User ID (for protection)
-- Discord Application ID and Public Key
+1. Copy `config.env.github` to `config.env`
+2. Add your Discord bot token to `config.env`:
+   ```
+   DISCORD_TOKEN=your_actual_discord_bot_token_here
+   ```
+3. Fill in other credentials as needed:
+   - Spotify API credentials
+   - Gemini AI API key
+   - Email settings for alerts
+   - Developer User ID (for protection)
+   - Discord Application ID and Public Key
+
+**Note:** The `config.env` file is gitignored for security. Use `config.env.github` as a template.
 
 ### 3. Discord Bot Setup
 1. Go to Discord Developer Portal
