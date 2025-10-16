@@ -1,0 +1,46 @@
+name: Deploy Discord Bot
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: Run tests
+      run: |
+        pip install pytest
+        pytest tests/ -v
+    
+    - name: Build Docker image
+      run: |
+        docker build -t discord-music-defense-bot .
+    
+    - name: Deploy to production
+      if: github.ref == 'refs/heads/main'
+      run: |
+        echo "🚀 Deploying to production..."
+        # Add your deployment commands here
+        # Example: docker-compose up -d
+    
+    - name: Notify deployment
+      if: github.ref == 'refs/heads/main'
+      run: |
+        echo "✅ Deployment completed successfully!"
+        # Add notification logic here

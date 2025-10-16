@@ -1,0 +1,76 @@
+# Prometheus alerting rules for Discord Music Bot with Hidden Defense System
+
+groups:
+  - name: discord_bot_alerts
+    rules:
+      - alert: BotDown
+        expr: up{job="discord-bot"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Discord Bot is down"
+          description: "Discord Music Bot with Hidden Defense System has been down for more than 1 minute."
+
+      - alert: HighErrorRate
+        expr: rate(discord_errors_total[5m]) > 0.1
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High error rate detected"
+          description: "Discord bot error rate is {{ $value }} errors per second."
+
+      - alert: RaidDetected
+        expr: increase(discord_raids_detected_total[1m]) > 0
+        for: 0s
+        labels:
+          severity: critical
+        annotations:
+          summary: "Raid detected"
+          description: "A raid has been detected on the Discord server."
+
+      - alert: HighToxicityLevel
+        expr: discord_toxicity_level > 0.8
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High toxicity level detected"
+          description: "User {{ $labels.user_id }} has a toxicity level of {{ $value }}."
+
+      - alert: DefenseSystemDown
+        expr: up{job="discord-bot-defense"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Defense system is down"
+          description: "The hidden defense system is not responding."
+
+      - alert: MusicSystemDown
+        expr: up{job="discord-bot-music"} == 0
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Music system is down"
+          description: "The music system is not responding."
+
+      - alert: HighMemoryUsage
+        expr: process_resident_memory_bytes / 1024 / 1024 > 500
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High memory usage"
+          description: "Discord bot is using {{ $value }} MB of memory."
+
+      - alert: LowDiskSpace
+        expr: (node_filesystem_avail_bytes / node_filesystem_size_bytes) < 0.1
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Low disk space"
+          description: "Disk space is running low: {{ $value }}% available."

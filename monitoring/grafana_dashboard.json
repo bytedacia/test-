@@ -1,0 +1,101 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "Discord Music Bot with Hidden Defense System",
+    "tags": ["discord", "bot", "defense", "music"],
+    "style": "dark",
+    "timezone": "browser",
+    "panels": [
+      {
+        "id": 1,
+        "title": "Bot Status",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "up{job=\"discord-bot\"}",
+            "legendFormat": "Bot Online"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "thresholds": {
+              "steps": [
+                {
+                  "color": "red",
+                  "value": 0
+                },
+                {
+                  "color": "green",
+                  "value": 1
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": 2,
+        "title": "Messages Processed",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(discord_messages_processed_total[5m])",
+            "legendFormat": "Messages/sec"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "title": "Raid Detection",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(discord_raids_detected_total[5m])",
+            "legendFormat": "Raids Detected/sec"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "title": "Toxicity Analysis",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(discord_toxicity_analyzed_total[5m])",
+            "legendFormat": "Toxicity Analysis/sec"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "title": "Protected Users",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "discord_protected_users_total",
+            "legendFormat": "Protected Users"
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "title": "System Errors",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(discord_errors_total[5m])",
+            "legendFormat": "Errors/sec"
+          }
+        ]
+      }
+    ],
+    "time": {
+      "from": "now-1h",
+      "to": "now"
+    },
+    "refresh": "5s"
+  }
+}

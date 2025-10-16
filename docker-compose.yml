@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  discord-bot:
+    build: .
+    container_name: discord-music-defense-bot
+    restart: unless-stopped
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./config.env:/app/config.env:ro
+      - ./backups:/app/backups
+      - ./logs:/app/logs
+    networks:
+      - bot-network
+    # Uncomment if you need to expose a port
+    # ports:
+    #   - "8080:8080"
+
+networks:
+  bot-network:
+    driver: bridge
+
+# Optional: Add a database service if needed
+# services:
+#   database:
+#     image: postgres:13
+#     container_name: bot-database
+#     restart: unless-stopped
+#     environment:
+#       POSTGRES_DB: bot_db
+#       POSTGRES_USER: bot_user
+#       POSTGRES_PASSWORD: bot_password
+#     volumes:
+#       - postgres_data:/var/lib/postgresql/data
+#     networks:
+#       - bot-network
+
+# volumes:
+#   postgres_data:

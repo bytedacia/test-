@@ -1,0 +1,60 @@
+# Git attributes for Discord Music Bot with Hidden Defense System
+
+# Python files
+*.py text eol=lf
+
+# Configuration files
+*.env text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+
+# Documentation
+*.md text eol=lf
+*.txt text eol=lf
+
+# Scripts
+*.sh text eol=lf
+*.bat text eol=crlf
+
+# Database files
+*.sql text eol=lf
+*.db binary
+
+# Log files (don't track by default)
+*.log text eol=lf
+logs/*.log text eol=lf
+
+# Backup files
+backups/*.json.gz binary
+*.backup binary
+
+# Binary files
+*.exe binary
+*.dll binary
+*.so binary
+*.dylib binary
+
+# Archives
+*.zip binary
+*.tar.gz binary
+*.rar binary
+
+# Images
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+
+# Audio files
+*.mp3 binary
+*.wav binary
+*.ogg binary
+*.flac binary
+
+# Video files
+*.mp4 binary
+*.avi binary
+*.mov binary
+*.mkv binary

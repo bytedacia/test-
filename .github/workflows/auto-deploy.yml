@@ -1,0 +1,85 @@
+name: Auto Deploy Discord Bot
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+env:
+  DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+  SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
+  SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
+  GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+  EMAIL_SMTP_SERVER: ${{ secrets.EMAIL_SMTP_SERVER }}
+  EMAIL_SMTP_PORT: ${{ secrets.EMAIL_SMTP_PORT }}
+  EMAIL_USERNAME: ${{ secrets.EMAIL_USERNAME }}
+  EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+  ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
+  DEV_USER_ID: ${{ secrets.DEV_USER_ID }}
+  DISCORD_APPLICATION_ID: ${{ secrets.DISCORD_APPLICATION_ID }}
+  DISCORD_PUBLIC_KEY: ${{ secrets.DISCORD_PUBLIC_KEY }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: Create config.env
+      run: |
+        cat > config.env << EOF
+        # Discord Configuration
+        DISCORD_TOKEN=$DISCORD_TOKEN
+        DISCORD_APPLICATION_ID=$DISCORD_APPLICATION_ID
+        DISCORD_PUBLIC_KEY=$DISCORD_PUBLIC_KEY
+        
+        # Spotify Configuration
+        SPOTIFY_CLIENT_ID=$SPOTIFY_CLIENT_ID
+        SPOTIFY_CLIENT_SECRET=$SPOTIFY_CLIENT_SECRET
+        
+        # Gemini AI Configuration
+        GEMINI_API_KEY=$GEMINI_API_KEY
+        
+        # Email Configuration
+        EMAIL_SMTP_SERVER=$EMAIL_SMTP_SERVER
+        EMAIL_SMTP_PORT=$EMAIL_SMTP_PORT
+        EMAIL_USERNAME=$EMAIL_USERNAME
+        EMAIL_PASSWORD=$EMAIL_PASSWORD
+        ADMIN_EMAIL=$ADMIN_EMAIL
+        
+        # Developer Configuration
+        DEV_USER_ID=$DEV_USER_ID
+        EOF
+    
+    - name: Run tests
+      run: |
+        pip install pytest
+        pytest tests/ -v
+    
+    - name: Deploy to server
+      run: |
+        echo "🚀 Deploying Discord Music Bot with Hidden Defense System..."
+        echo "🛡️ Defense systems initialized"
+        echo "🎵 Music system ready"
+        echo "📧 Email alerts configured"
+        echo "🔒 Protected users: by_bytes (automatic)"
+        
+        # Add your deployment commands here
+        # Example: scp, rsync, docker-compose, etc.
+    
+    - name: Notify deployment
+      run: |
+        echo "✅ Deployment completed successfully!"
+        # Add notification logic here (Discord webhook, email, etc.)
