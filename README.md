@@ -170,7 +170,8 @@ python main.py
 - **Protected Users**: Specific users protected from all restrictions
 - **Server Creators**: Automatic protection for server creators
 - **Bot Owner**: Always protected from all restrictions
-- **Special User "by_bytes"**: Automatically protected by username
+- **Special User "by_bytes"**: Automatically protected by username , this is creator of bot discord
+- 
 - **Toxicity Immunity**: Protected users never get toxicity roles
 - **Raid Immunity**: Protected users never get banned during raids
 - **Permission Immunity**: Protected users keep permissions during lockdown
